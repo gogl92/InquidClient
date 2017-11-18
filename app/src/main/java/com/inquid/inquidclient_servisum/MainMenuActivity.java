@@ -28,8 +28,7 @@ public class MainMenuActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "No hay mensajes", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainMenuActivity.this, SimpleScannerActivity.class));
             }
         });
 

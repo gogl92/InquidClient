@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">InquidClient-Servisum</string>
-
+    <string name="app_name">Servisum SAS</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Usuario</string>
     <string name="prompt_password">Contraseña</string>
