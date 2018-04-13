@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
@@ -14,7 +15,11 @@ import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
@@ -84,31 +89,22 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result rawResult) {
-        // Do something with the result here
-        Log.v(TAG, rawResult.getText()); // Prints scan results
-        Log.v(TAG, rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-        final AlertDialog.Builder result = new AlertDialog.Builder(this);
-        final AlertDialog OptionDialog = result.create();
-        result.setTitle("Código Escaneado");
-        result.setMessage(fromHtml("<b>Resultado:<b><br><ul><li> Formato " + rawResult.getBarcodeFormat().toString() + "</li><br><li> Código" + rawResult.getText() + "</li></ul>"));
-        result.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.barcode_result);
+        dialog.setTitle("Lectura de Etiqueta");
+
+        TextView text = dialog.findViewById(R.id.text);
+        text.setText(rawResult.getText());
+        Log.d("result_barcode",rawResult.getText());
+        Button dialogButton = dialog.findViewById(R.id.dialogButtonOK);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                OptionDialog.dismiss();
-                mScannerView.resumeCameraPreview(SimpleScannerActivity.this);
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
-        result.show();
-    }
 
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html) {
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
+        dialog.show();
     }
 }

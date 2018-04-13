@@ -19,4 +19,6 @@
 
     <string name="action_settings">Configuración</string>
     <string name="title_activity_simple_scanner">SimpleScannerActivity</string>
+    <string name="result">result</string>
+    <string name="ok">OK</string>
 </resources>
