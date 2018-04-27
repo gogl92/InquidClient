@@ -47,7 +47,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     private int unidades = 1;
     private int decenas = 0;
     TextView qty_lb;
-
+    private boolean desbordamiento = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         TAG = SimpleScannerActivity.class.getSimpleName();
@@ -143,6 +143,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
                     unidades = 1;
                 }
                 if (unidades != 1 && decenas == 0) {
+                    decenas = unidades;
                     decenas = 1;
                 }
                 setQty();
@@ -152,8 +153,12 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 2;
+                    decenas = 2;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 2;
                 }
+
                 setQty();
             }
         });
@@ -161,7 +166,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 3;
+                    decenas = 3;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 3;
                 }
                 setQty();
             }
@@ -170,7 +178,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 4;
+                    decenas = 4;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 4;
                 }
                 setQty();
             }
@@ -179,7 +190,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 5;
+                    decenas = 5;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 5;
                 }
                 setQty();
             }
@@ -188,7 +202,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 6;
+                    decenas = 6;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 6;
                 }
                 setQty();
             }
@@ -197,7 +214,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 7;
+                    decenas = 7;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 7;
                 }
                 setQty();
             }
@@ -206,7 +226,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 8;
+                    decenas = 8;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 8;
                 }
                 setQty();
             }
@@ -215,7 +238,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             @Override
             public void onClick(View view) {
                 if (unidades <= 1 && decenas == 0) {
-                    unidades = 9;
+                    decenas = 9;
+                }else if(decenas==0){
+                    decenas = unidades;
+                    decenas = 9;
                 }
                 setQty();
             }
@@ -246,6 +272,6 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
     private void setQty() {
         multiplier = (decenas * 10) + unidades;
-        qty_lb.setText(String.valueOf(multiplier));
+        qty_lb.setText(String.format(" X %s", String.valueOf(multiplier)));
     }
 }
