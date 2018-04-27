@@ -1,5 +1,8 @@
 package com.inquid.inquidclient_servisum;
 
+import android.app.AlertDialog;
+import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -40,6 +43,32 @@ public class MainMenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(getIntent().getStringExtra("send_report")!=null){
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainMenuActivity.this);
+            alert.setMessage("Write your message here.");
+            alert.setCancelable(true);
+
+            alert.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            alert.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = alert.create();
+            alert11.show();
+        }
+
     }
 
     @Override

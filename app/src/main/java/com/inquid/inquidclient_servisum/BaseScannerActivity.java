@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class BaseScannerActivity extends AppCompatActivity {
+    public static final String PREFS_NAME = "BarCodeRead";
+
     public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

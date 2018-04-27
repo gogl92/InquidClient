@@ -32,50 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_1"/>
-
-            <Button
-                android:id="@+id/btn_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_2" />
-
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_3" />
-
-            <Button
-                android:id="@+id/btn_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_4" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/btn_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_5" />
-
-            <Button
-                android:id="@+id/btn_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_6" />
 
         </TableRow>
 
@@ -83,17 +48,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_7" />
+        </TableRow>
 
-            <Button
-                android:id="@+id/btn_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_8" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         </TableRow>
 
@@ -101,23 +60,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_9" />
-
-            <Button
-                android:id="@+id/btn_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_0" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <Spinner
+                android:id="@+id/sp_qty"
+                android:layout_width="142dp"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/dialogButtonOK"
@@ -125,6 +71,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="57dp"
                 android:text="@string/ok" />
+
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finalizar" />
         </TableRow>
     </TableLayout>
 </android.support.constraint.ConstraintLayout>

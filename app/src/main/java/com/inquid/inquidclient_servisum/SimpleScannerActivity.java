@@ -1,29 +1,26 @@
 package com.inquid.inquidclient_servisum;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+
+import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -31,27 +28,17 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     private ZXingScannerView mScannerView;
     private static String TAG;
     public static final int PERMISSION_REQUEST_CAMERA = 1;
-    private Button btn_0;
-    private Button btn_1;
-    private Button btn_2;
-    private Button btn_3;
-    private Button btn_4;
-    private Button btn_5;
-    private Button btn_6;
-    private Button btn_7;
-    private Button btn_8;
-    private Button btn_9;
     private Dialog dialog;
-
-    private int multiplier = 1;
-    private int unidades = 1;
-    private int decenas = 0;
+    private Spinner qty_sp;
     TextView qty_lb;
     private boolean desbordamiento = false;
+    public static final String PREFS_NAME = "BarCodeRead";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         TAG = SimpleScannerActivity.class.getSimpleName();
         super.onCreate(savedInstanceState);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
         mScannerView = new ZXingScannerView(this);    // Programmatically initialize the scanner view
         setContentView(mScannerView);                // Set the scanner view as the content view
@@ -113,137 +100,24 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
         dialog.setContentView(R.layout.barcode_result);
         dialog.setTitle("Lectura de Etiqueta");
-
-
-        btn_0 = dialog.findViewById(R.id.btn_0);
-        btn_1 = dialog.findViewById(R.id.btn_1);
-        btn_2 = dialog.findViewById(R.id.btn_2);
-        btn_3 = dialog.findViewById(R.id.btn_3);
-        btn_4 = dialog.findViewById(R.id.btn_4);
-        btn_5 = dialog.findViewById(R.id.btn_5);
-        btn_6 = dialog.findViewById(R.id.btn_6);
-        btn_7 = dialog.findViewById(R.id.btn_7);
-        btn_8 = dialog.findViewById(R.id.btn_8);
-        btn_9 = dialog.findViewById(R.id.btn_9);
-
         qty_lb = dialog.findViewById(R.id.lb_qty);
-        btn_0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades != 1) {
-                    decenas = 0;
-                }
-                setQty();
-            }
-        });
-        btn_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    unidades = 1;
-                }
-                if (unidades != 1 && decenas == 0) {
-                    decenas = unidades;
-                    decenas = 1;
-                }
-                setQty();
-            }
-        });
-        btn_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 2;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 2;
-                }
+        qty_sp = dialog.findViewById(R.id.sp_qty);
+        ArrayList<String> numbers = new ArrayList<>();
+        for (int i = 1; i < 100; i++) {
+            numbers.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
+        qty_sp.setAdapter(adapter);
 
+        qty_sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
                 setQty();
             }
-        });
-        btn_3.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 3;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 3;
-                }
-                setQty();
-            }
-        });
-        btn_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 4;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 4;
-                }
-                setQty();
-            }
-        });
-        btn_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 5;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 5;
-                }
-                setQty();
-            }
-        });
-        btn_6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 6;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 6;
-                }
-                setQty();
-            }
-        });
-        btn_7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 7;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 7;
-                }
-                setQty();
-            }
-        });
-        btn_8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 8;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 8;
-                }
-                setQty();
-            }
-        });
-        btn_9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (unidades <= 1 && decenas == 0) {
-                    decenas = 9;
-                }else if(decenas==0){
-                    decenas = unidades;
-                    decenas = 9;
-                }
-                setQty();
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
@@ -253,12 +127,24 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         setQty();
         Log.d("result_barcode", rawResult.getText());
         Button dialogButton = dialog.findViewById(R.id.dialogButtonOK);
+        Button done_btn = dialog.findViewById(R.id.btn_done);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveData();
                 dialog.dismiss();
                 startActivity(new Intent(SimpleScannerActivity.this, SimpleScannerActivity.class));
+                SimpleScannerActivity.this.finish();
+            }
+        });
+        done_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();
+                dialog.dismiss();
+                Intent intent=new Intent(SimpleScannerActivity.this, MainMenuActivity.class);
+                intent.putExtra("send_report", intent);
+                startActivity(intent);
                 SimpleScannerActivity.this.finish();
             }
         });
@@ -271,7 +157,6 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     }
 
     private void setQty() {
-        multiplier = (decenas * 10) + unidades;
-        qty_lb.setText(String.format(" X %s", String.valueOf(multiplier)));
+        qty_lb.setText(String.format(" X %s", String.valueOf(qty_sp.getSelectedItem().toString())));
     }
 }
